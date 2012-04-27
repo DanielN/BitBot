@@ -12,6 +12,7 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smackx.muc.DiscussionHistory;
 import org.jivesoftware.smackx.muc.MultiUserChat;
+import org.jivesoftware.smackx.muc.Occupant;
 
 
 public class ChatServer {
@@ -70,7 +71,13 @@ public class ChatServer {
 			if (packet instanceof Message) {
 				Message msg = (Message) packet;
 				System.out.println("Room message: " + msg.getFrom() + " -> " + msg.getTo() + ": " + msg.getBody());
-				messageHandler.processMessage(msg.getBody(), new User(muc.getOccupant(msg.getFrom())), false, new RoomReplier(muc, msg.getFrom()));
+				Occupant occupant = muc.getOccupant(msg.getFrom());
+				if (occupant == null) {
+					System.out.println("Ignoring due to unknown sender!");
+				} else if (occupant.getNick().equals(muc.getNickname())) {
+					System.out.println("Ignoring own message");
+				}
+				messageHandler.processMessage(msg.getBody(), new User(occupant), false, new RoomReplier(muc, msg.getFrom()));
 			} else {
 				System.out.println("Unhandled packet type from room: " + packet.getClass());
 			}
