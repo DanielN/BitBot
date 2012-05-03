@@ -6,8 +6,8 @@ public class MessageHandler {
 
 	private final char commandPrefix;
 
-	public MessageHandler() {
-		commandPrefix = '!';
+	public MessageHandler(char commandPrefix) {
+		this.commandPrefix = commandPrefix;
 	}
 
 	public void processMessage(String text, User user, boolean pm, Replier replier) {

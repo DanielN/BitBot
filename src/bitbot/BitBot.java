@@ -22,7 +22,7 @@ public class BitBot {
 
 	public BitBot(BotConfig config) {
 		this.config = config;
-		MessageHandler messageHandler = new MessageHandler();
+		MessageHandler messageHandler = new MessageHandler(config.getCommandPrefix());
 		server = new ChatServer(config.getChatServerConfig(), messageHandler);
 	}
 	

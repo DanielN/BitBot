@@ -12,6 +12,7 @@ public class BotConfig {
 
 	private ChatServerConfig chatServerConfig;
 	private List<RoomConfig> roomConfigs = new ArrayList<RoomConfig>();
+	private char commandPrefix;
 
 	public BotConfig() {
 	}
@@ -26,6 +27,10 @@ public class BotConfig {
 	
 	public List<RoomConfig> getRoomConfigs() {
 		return roomConfigs;
+	}
+	
+	public char getCommandPrefix() {
+		return commandPrefix;
 	}
 
 	public void load(File file) throws IOException {
@@ -42,6 +47,7 @@ public class BotConfig {
 		for (String room : rooms.split("\\s")) {
 			roomConfigs.add(new RoomConfig(props, "room." + room));
 		}
+		commandPrefix = props.getProperty("commandPrefix").charAt(0);
 	}
 
 }
