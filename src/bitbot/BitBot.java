@@ -3,6 +3,7 @@ package bitbot;
 import java.io.File;
 import java.io.IOException;
 
+import bitbot.commands.DecideCommand;
 import bitbot.commands.GreetCommand;
 
 
@@ -26,6 +27,7 @@ public class BitBot {
 		this.config = config;
 		MessageHandler messageHandler = new MessageHandler(config.getCommandPrefix());
 		messageHandler.addCommand(new GreetCommand());
+		messageHandler.addCommand(new DecideCommand());
 		server = new ChatServer(config.getChatServerConfig(), messageHandler);
 	}
 	
